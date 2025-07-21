@@ -10,7 +10,6 @@ import userRouter from "./routers/user.router.js";
 import productRouter from "./routers/product.router.js";
 import orderRouter from "./routers/order.router.js";
 import categoryRouter from "./routers/category.router.js";
-import chatRouter from "./routers/chat.router.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -29,7 +28,6 @@ app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/orders", orderRouter);
 app.use("/category", categoryRouter);
-app.use("/chat", chatRouter);
 
 app.use(errorHandler);
 
