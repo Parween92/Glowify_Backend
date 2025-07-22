@@ -15,9 +15,25 @@ import errorHandler from "./middlewares/errorHandler.js";
 const app = express();
 const port = process.env.PORT || 8000;
 
+// CORS configuration for both development and production
+const allowedOrigins = [
+  "http://localhost:5173", // Development
+  process.env.FRONTEND_URL || "https://glowify-shop-project.onrender.com" // Production
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        console.log('CORS blocked origin:', origin);
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
